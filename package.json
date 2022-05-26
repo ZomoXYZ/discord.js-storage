@@ -1,0 +1,27 @@
+{
+    "name": "discord.js-storage",
+    "description": "",
+    "version": "1.0.0",
+    "main": "lib/main.js",
+    "types": "lib/main.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "buildexamples": "node buildexample.js",
+        "prettier": "prettier --write .",
+        "prepare": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@git.zomo.dev:zomo/discordslash.git"
+    },
+    "author": "ashley zomo",
+    "license": "ISC",
+    "devDependencies": {
+        "discord.js": "^13.6.0",
+        "prettier": "^2.6.2",
+        "typescript": "^4.6.3"
+    },
+    "dependencies": {
+        "esbuild": "^0.14.28"
+    }
+}

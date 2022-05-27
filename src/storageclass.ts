@@ -23,7 +23,7 @@ export class StorageBase {
         return this.val.get()
     }
 
-    getJson<T = JSONObject>(defaultValue?: T): T {
+    getJson<T = JSONObject>(defaultValue: T): T {
         try {
 
             let val = JSON.parse(this.val.get())

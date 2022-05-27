@@ -5,8 +5,19 @@ const define = {
 }
 
 build({
-    entryPoints: ['examples/main.ts'],
-    outfile: 'examples/main.js',
+    entryPoints: ['examples/basic.ts'],
+    outfile: 'examples/basic.js',
+
+    target: 'es6',
+    platform: 'node',
+    format: 'cjs',
+
+    define,
+})
+
+build({
+    entryPoints: ['examples/test.ts'],
+    outfile: 'examples/test.js',
 
     target: 'es6',
     platform: 'node',

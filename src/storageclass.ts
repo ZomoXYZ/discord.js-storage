@@ -24,6 +24,7 @@ export class StorageBase {
     }
 
     getJson<T = JSONObject>(defaultValue: T): T {
+        defaultValue = structuredClone(defaultValue)
         try {
             let val = JSON.parse(this.val.get())
             if (defaultValue) {

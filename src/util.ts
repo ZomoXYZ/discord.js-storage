@@ -4,6 +4,7 @@ export type JSONObject<Value = JSONDataTypes, Key extends string = string> = {
 }
 
 export function defaultJson<T>(data: any, defaultValue: T): T {
+    defaultValue = structuredClone(defaultValue)
     if (typeof data !== 'object') {
         return defaultValue
     }
@@ -22,6 +23,7 @@ export function defaultJsonString(
     data: string,
     defaultValue: string | JSONObject = ''
 ): string {
+    defaultValue = structuredClone(defaultValue)
     if (data.length === 0) {
         //no existing data, give the default value instead
 

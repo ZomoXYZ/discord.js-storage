@@ -1,4 +1,4 @@
-import { JSONObject } from './util'
+import { defaultJson, JSONObject } from './util'
 import { Guild } from 'discord.js'
 
 export interface StorageValue {
@@ -23,14 +23,24 @@ export class StorageBase {
         return this.val.get()
     }
 
-    getJson<T = JSONObject>(): T {
-        let val
+    getJson<T = JSONObject>(defaultValue?: T): T | {} {
         try {
-            val = JSON.parse(this.val.get())
+
+            let val = JSON.parse(this.val.get())
+            if (defaultValue) {
+                val = defaultJson(val, defaultValue)
+            }
+            return val;
+
         } catch (e) {
-            val = {}
+
+            if (defaultValue) {
+                return defaultValue
+            }
+
+            return {}
+
         }
-        return val
     }
 }
 

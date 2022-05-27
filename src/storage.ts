@@ -1,7 +1,7 @@
 import { Guild } from 'discord.js'
 import { readFile, writeFile } from './fs'
 import { GlobalStorage, GuildStorage } from './storageclass'
-import { defaultJson, JSONObject } from './util'
+import { defaultJsonString, JSONObject } from './util'
 
 var GlobalCache = ''
 /** Map<guild id, stringified data> */
@@ -10,7 +10,7 @@ const GuildCache = new Map<string, string>()
 export function initGlobalCache(defaultValue?: string | JSONObject) {
     if (GlobalCache.length === 0) {
         let data = readFile('global')
-        GlobalCache = defaultJson(data, defaultValue)
+        GlobalCache = defaultJsonString(data, defaultValue)
     }
 }
 
@@ -20,7 +20,7 @@ export function initGuildCache(
 ) {
     if (!GuildCache.has(guild.id)) {
         let data = readFile(guild)
-        GuildCache.set(guild.id, defaultJson(data, defaultValue))
+        GuildCache.set(guild.id, defaultJsonString(data, defaultValue))
     }
 }
 

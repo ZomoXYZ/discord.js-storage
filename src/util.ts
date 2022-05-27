@@ -3,10 +3,25 @@ export type JSONObject<Value = JSONDataTypes, Key extends string = string> = {
     [key in Key]: Value
 }
 
-export function defaultJson(
+export function defaultJson<T>(data: any, defaultValue: T): T {
+    if (typeof data !== 'object') {
+        return defaultValue
+    }
+
+    for (let key in defaultValue) {
+        if (!(key in data) || typeof data[key] !== typeof defaultValue[key]) {
+            //key doesnt exist OR key exists, but type is incorrect
+            data[key] = defaultValue[key]
+        }
+    }
+
+    return data as T
+}
+
+export function defaultJsonString(
     data: string,
     defaultValue: string | JSONObject = ''
-) {
+): string {
     if (data.length === 0) {
         //no existing data, give the default value instead
 
@@ -22,15 +37,7 @@ export function defaultJson(
         try {
             let foundJson = JSON.parse(data)
 
-            for (let key in defaultValue) {
-                if (
-                    !(key in foundJson) ||
-                    typeof foundJson[key] !== typeof defaultValue[key]
-                ) {
-                    //key doesnt exist OR key exists, but type is incorrect
-                    foundJson[key] = defaultValue[key]
-                }
-            }
+            foundJson = defaultJson(foundJson, defaultValue)
 
             return JSON.stringify(foundJson)
         } catch (e) {

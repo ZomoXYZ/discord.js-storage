@@ -1,52 +1,25 @@
-/*
+import { setFlag } from "./flags";
+import { globalStorage, initGlobalCache } from './storage'
 
-initGlobalStorage()
-initChannelStorage(channel/channels)
-
-channelStorage(channel) => Storage
-
-Storage {
-    get() => string
-    set(string | json)
-
-    getJson() => json
+function test2() {
+    let storage = globalStorage()
+    storage.set({
+        a: 'aaaaa',
+        b: 'bbbbb',
+        c: 'ccccc',
+    })
 }
 
-*/
-
-import { JSONObject } from './util'
-
-class StorageBase {
-    val: string
-    fallbackJSON: JSONObject
-    constructor(val: string | JSONObject, fallbackJSON?: JSONObject) {
-        if (typeof val !== 'string') {
-            val = JSON.stringify(val)
-        }
-        if (fallbackJSON === undefined) {
-            fallbackJSON = val.constructor() as JSONObject
-        }
-        this.val = val
-        this.fallbackJSON = fallbackJSON
-    }
-    set(val: string | JSONObject) {
-        if (typeof val !== 'string') {
-            val = JSON.stringify(val)
-        }
-        this.val = val
-    }
-
-    get(): string {
-        return this.val
-    }
-
-    getJson(): JSONObject {
-        let val
-        try {
-            val = JSON.parse(this.val)
-        } catch (e) {
-            val = {}
-        }
-        return val
-    }
+function test() {
+    setFlag('dir', './data')
+    initGlobalCache({
+        a: 'aaa',
+        b: 'bbb',
+    })
+    let storage = globalStorage()
+    console.log(storage.get())
+    test2()
+    console.log(storage.get())
 }
+
+test()

@@ -14,7 +14,10 @@ export function initGlobalCache(defaultValue?: string | JSONObject) {
     }
 }
 
-export function initGuildCache(guild: Guild, defaultValue?: string | JSONObject) {
+export function initGuildCache(
+    guild: Guild,
+    defaultValue?: string | JSONObject
+) {
     if (!GuildCache.has(guild.id)) {
         let data = readFile(guild)
         GuildCache.set(guild.id, defaultJson(data, defaultValue))

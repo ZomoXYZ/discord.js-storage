@@ -1,8 +1,11 @@
 const Flags = {
-    dir: './storage'
+    dir: './storage',
 }
 
-export function setFlag<T extends keyof typeof Flags>(key: T, val: typeof Flags[T]) {
+export function setFlag<T extends keyof typeof Flags>(
+    key: T,
+    val: typeof Flags[T]
+) {
     Flags[key] = val
 }
 

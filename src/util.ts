@@ -3,8 +3,10 @@ export type JSONObject<Value = JSONDataTypes, Key extends string = string> = {
     [key in Key]: Value
 }
 
-export function defaultJson(data: string, defaultValue: string | JSONObject = '') {
-
+export function defaultJson(
+    data: string,
+    defaultValue: string | JSONObject = ''
+) {
     if (data.length === 0) {
         //no existing data, give the default value instead
 
@@ -13,7 +15,6 @@ export function defaultJson(data: string, defaultValue: string | JSONObject = ''
         } else {
             return JSON.stringify(defaultValue)
         }
-
     } else if (typeof defaultValue !== 'string') {
         //existing data should be compared
         //nothing to compare if default value is string
@@ -36,9 +37,7 @@ export function defaultJson(data: string, defaultValue: string | JSONObject = ''
             //couldn't parse data
             return JSON.stringify(defaultValue)
         }
-
     }
 
     return data
-
 }

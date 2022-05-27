@@ -1,5 +1,10 @@
 import { Guild } from 'discord.js'
-import { readFileSync, writeFileSync, ensureDirSync, ensureFileSync } from 'fs-extra'
+import {
+    readFileSync,
+    writeFileSync,
+    ensureDirSync,
+    ensureFileSync,
+} from 'fs-extra'
 import { getFlag } from './flags'
 
 type storageTypes = 'global' | Guild

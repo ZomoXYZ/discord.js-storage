@@ -23,7 +23,7 @@ export class StorageBase {
         return this.val.get()
     }
 
-    getJson<T extends JSONObject>(): T {
+    getJson<T = JSONObject>(): T {
         let val
         try {
             val = JSON.parse(this.val.get())

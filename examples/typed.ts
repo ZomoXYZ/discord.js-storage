@@ -2,11 +2,11 @@ import { Guild } from 'discord.js'
 import { setFlag, globalStorage, guildStorage } from '..'
 
 interface StorageData {
-    pingCount: number
+    pings: number[]
 }
 
 const DefaultStorage: StorageData = {
-    pingCount: 0,
+    pings: [],
 }
 
 function main() {
@@ -19,10 +19,10 @@ function main() {
     let globalJson = globalStor.getJson(DefaultStorage)
     let guildJson = guildStor.getJson(DefaultStorage)
 
-    globalJson.pingCount++
+    globalJson.pings.push(Date.now())
     console.log(globalJson, guildJson)
 
-    if (guildJson) guildJson.pingCount++
+    if (guildJson) guildJson.pings.push(Date.now())
     console.log(globalJson, guildJson)
 
     globalStor.set(globalJson)

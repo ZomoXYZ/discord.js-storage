@@ -19,9 +19,9 @@ export function defaultJson<T>(data: any, defaultValue: T): T {
     return data as T
 }
 
-export function defaultJsonString(
+export function defaultJsonString<T>(
     data: string,
-    defaultValue: string | JSONObject = ''
+    defaultValue: string | T = ''
 ): string {
     defaultValue = structuredClone(defaultValue)
     if (data.length === 0) {

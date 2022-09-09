@@ -6,13 +6,13 @@ export interface StorageValue {
     set(val: string): void
 }
 
-export class StorageBase {
+export class StorageBase<T = JSONObject> {
     val: StorageValue
 
     constructor(val: StorageValue) {
         this.val = val
     }
-    set(val: string | JSONObject) {
+    set(val: string | T) {
         if (typeof val !== 'string') {
             val = JSON.stringify(val)
         }
@@ -23,7 +23,7 @@ export class StorageBase {
         return this.val.get()
     }
 
-    getJson<T = JSONObject>(defaultValue: T): T {
+    getJson(defaultValue: T): T {
         defaultValue = structuredClone(defaultValue)
         try {
             let val = JSON.parse(this.val.get())
@@ -41,9 +41,9 @@ export class StorageBase {
     }
 }
 
-export class GlobalStorage extends StorageBase {}
+export class GlobalStorage<T = JSONObject> extends StorageBase<T> {}
 
-export class GuildStorage extends StorageBase {
+export class GuildStorage<T = JSONObject> extends StorageBase<T> {
     public guild: Guild
 
     constructor(guild: Guild, val: StorageValue) {

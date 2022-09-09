@@ -1,13 +1,13 @@
 import { Guild } from 'discord.js'
 import { readFile, writeFile } from './fs'
-import { GlobalStorage, GuildStorage } from './storageclass'
+import { GlobalStorage, GuildStorage, StorageValue } from './storageclass'
 import { defaultJsonString, JSONObject } from './util'
 
 var GlobalCache = ''
 /** Map<guild id, stringified data> */
 const GuildCache = new Map<string, string>()
 
-export function initGlobalCache(defaultValue?: string | JSONObject) {
+export function initGlobalCache<T = JSONObject>(defaultValue?: string | T) {
     defaultValue = structuredClone(defaultValue)
     if (GlobalCache.length === 0) {
         let data = readFile('global')
@@ -15,9 +15,9 @@ export function initGlobalCache(defaultValue?: string | JSONObject) {
     }
 }
 
-export function initGuildCache(
+export function initGuildCache<T = JSONObject>(
     guild: Guild,
-    defaultValue?: string | JSONObject
+    defaultValue?: string | T
 ) {
     defaultValue = structuredClone(defaultValue)
     if (!GuildCache.has(guild.id)) {
@@ -26,20 +26,20 @@ export function initGuildCache(
     }
 }
 
-export function globalStorage() {
+export function globalStorage<T = JSONObject>() {
     initGlobalCache()
 
-    let val = {
+    let val: StorageValue = {
         get: () => GlobalCache,
         set: (val: string) => {
             GlobalCache = val
             writeFile('global', val)
         },
     }
-    return new GlobalStorage(val)
+    return new GlobalStorage<T>(val)
 }
 
-export function guildStorage(guild: Guild) {
+export function guildStorage<T = JSONObject>(guild: Guild) {
     initGuildCache(guild)
 
     let val = {
@@ -49,5 +49,5 @@ export function guildStorage(guild: Guild) {
             writeFile(guild, val)
         },
     }
-    return new GuildStorage(guild, val)
+    return new GuildStorage<T>(guild, val)
 }

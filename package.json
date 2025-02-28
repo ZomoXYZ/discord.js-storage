@@ -1,7 +1,7 @@
 {
     "name": "discord.js-storage",
     "description": "",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "main": "lib/main.js",
     "types": "lib/main.d.ts",
     "scripts": {
@@ -17,14 +17,14 @@
     "author": "ashley zomo",
     "license": "ISC",
     "devDependencies": {
-        "@types/fs-extra": "^9.0.13",
-        "@types/node": "^17.0.35",
-        "discord.js": "^13.6.0",
-        "prettier": "^2.6.2",
-        "typescript": "^4.6.3"
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^22.13.5",
+        "discord.js": "^14.18.0",
+        "prettier": "^3.5.2",
+        "typescript": "^5.7.3"
     },
     "dependencies": {
-        "esbuild": "^0.14.28",
-        "fs-extra": "^10.1.0"
+        "esbuild": "^0.25.0",
+        "fs-extra": "^11.3.0"
     }
 }
